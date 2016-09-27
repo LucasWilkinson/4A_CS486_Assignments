@@ -81,10 +81,7 @@ def generate(startingWord, sentenceSpec, graph):
 
 	return highestProbSent
 
-
-
 open_file = open('input.txt', 'r')
 graph = open_file.read()
 
 print generate('a', ['DT', 'NN', 'VBD', 'NNP', 'IN', 'DT', 'NN'], graph)
-#wordGraph['understand'].printNode()
