@@ -40,10 +40,10 @@ def parse(graph):
 
 	return returnDict
 
-def generate(startingWord, sentenceSpec, graph):
-	wordGraph = parse(graph) 
-	currentNode = wordGraph[startingWord]
 
+def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
+	currentNode = wordGraph[startingWord]
+	
 	bfsQueue = []
 	bfsQueue.append((currentNode.word, 1, currentNode.word))
 	wordsToPop = 1
@@ -51,7 +51,7 @@ def generate(startingWord, sentenceSpec, graph):
 	for ps in sentenceSpec[1:]:
 		print ps
 
-		numWordsToPop = 0
+		tempWordsToPop = 0
 		for i in range(wordsToPop):
 			currentWord, currentProb, currentSentence = bfsQueue.pop(0)
 
@@ -59,13 +59,13 @@ def generate(startingWord, sentenceSpec, graph):
 				continue
 
 			nextWords = wordGraph[currentWord].getNextWords(ps)
-			numWordsToPop += len(nextWords)
+			tempWordsToPop += len(nextWords)
 
 			for word, prob in nextWords:
 				newSentence = currentSentence + ' ' + word
 				bfsQueue.append((word, currentProb*prob, newSentence))
 
-		wordsToPop = numWordsToPop
+		wordsToPop = tempWordsToPop
 
 	highestProb = 0
 	highestProbSent = ''
@@ -79,7 +79,15 @@ def generate(startingWord, sentenceSpec, graph):
 		if index%10 == 0:
 			print item[2]
 
-	return highestProbSent
+	return highestProb, highestProbSent
+
+
+def generate(startingWord, sentenceSpec, graph):
+	wordGraph = parse(graph) 
+
+	prob, sentence = breadthFirstSearch(startingWord, sentenceSpec, wordGraph)
+
+	return sentence
 
 open_file = open('input.txt', 'r')
 graph = open_file.read()
