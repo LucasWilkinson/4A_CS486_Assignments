@@ -85,3 +85,5 @@ open_file = open('input.txt', 'r')
 graph = open_file.read()
 
 print generate('a', ['DT', 'NN', 'VBD', 'NNP', 'IN', 'DT', 'NN'], graph)
+
+# running some git tests
