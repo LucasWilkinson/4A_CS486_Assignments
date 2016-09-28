@@ -81,8 +81,39 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 
 	return highestProb, highestProbSent
 
-def depthFirstSearch():
-	pass
+def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
+	currentNode = wordGraph[startingWord]
+
+	dfsStack = [] 
+	unvisitedChildren = currentNode.getNextWords(sentenceSpec[1])
+	currSent = currentNode.word
+	currWord = currentNode.word
+	currProb = 1
+	dfsStack.append((currWord, currProb, currSent, unvisitedChildren))
+
+	bestSentProb = 0
+	bestSentence = ''
+
+	while len(dfsStack) != 0:
+		currWord, currProb, currSent, unvisitedChildren = dfsStack[-1]
+		
+		if len(unvisitedChildren) > 0:
+			nextWord, nextProb = unvisitedChildren.pop(0)
+			nextChild = wordGraph[nextWord]
+
+			currWord = nextChild.word
+			currProb = nextProb*currProb
+			currSent = currSent + ' ' + currWord
+			
+			dfsStack.append(currWord, currProb, currSent, []) #THIS IS NOT DONE
+
+			if currDepth < len(sentenceSpec):
+				nextPs = sentenceSpec[len(dfsStack)]
+				unvisitedChildren = nextChild.getNextWords(nextPs)		
+				
+		else:
+			dfsStack.pop()
+
 
 def generate(startingWord, sentenceSpec, graph):
 	wordGraph = parse(graph) 
