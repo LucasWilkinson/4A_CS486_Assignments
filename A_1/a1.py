@@ -81,13 +81,15 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 
 	return highestProb, highestProbSent
 
+def depthFirstSearch():
+	pass
 
 def generate(startingWord, sentenceSpec, graph):
 	wordGraph = parse(graph) 
 
 	prob, sentence = breadthFirstSearch(startingWord, sentenceSpec, wordGraph)
 
-	return sentence
+	return '"' + sentence + '" is the highest probability sentence (' + str(prob*10) + '%).'
 
 open_file = open('input.txt', 'r')
 graph = open_file.read()
