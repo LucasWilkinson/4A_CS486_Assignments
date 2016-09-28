@@ -1,4 +1,4 @@
-print "Assignment_1"
+print "Assignment_1\n"
 
 class wordNode:
 	def __init__(self, word, ps):
@@ -49,7 +49,6 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	wordsToPop = 1
 	
 	for ps in sentenceSpec[1:]:
-		print ps
 
 		tempWordsToPop = 0
 		for i in range(wordsToPop):
@@ -75,56 +74,139 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 			highestProb = prob
 			highestProbSent = sentence
 
-	for index, item in enumerate(bfsQueue):
-		if index%10 == 0:
-			print item[2]
+	# for index, item in enumerate(bfsQueue):
+	# 	if index%10 == 0:
+	# 		print item[2]
 
 	return highestProb, highestProbSent
 
-def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
+def zzdepthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	currentNode = wordGraph[startingWord]
 
 	dfsStack = [] 
 	unvisitedChildren = currentNode.getNextWords(sentenceSpec[1])
+	print sentenceSpec[1], unvisitedChildren
 	currSent = currentNode.word
 	currWord = currentNode.word
 	currProb = 1
 	dfsStack.append((currWord, currProb, currSent, unvisitedChildren))
 
-	bestSentProb = 0
+	bestProb = 0
 	bestSentence = ''
 
 	while len(dfsStack) != 0:
 		currWord, currProb, currSent, unvisitedChildren = dfsStack[-1]
 		
 		if len(unvisitedChildren) > 0:
-			nextWord, nextProb = unvisitedChildren.pop(0)
+			# pop the next unvisited child from the stack entry
+			# NOTE: unvisitedChildren is a copy of dfsStack[-1][3], however for 
+			# here we use dfsStack[-1][3] so it updates the actual stack entry
+			nextWord, nextProb = dfsStack[-1][3].pop(0)
+
+			if (nextWord not in wordGraph):
+				continue
+
 			nextChild = wordGraph[nextWord]
 
 			currWord = nextChild.word
 			currProb = nextProb*currProb
 			currSent = currSent + ' ' + currWord
-			
-			dfsStack.append(currWord, currProb, currSent, []) #THIS IS NOT DONE
 
-			if currDepth < len(sentenceSpec):
-				nextPs = sentenceSpec[len(dfsStack)]
-				unvisitedChildren = nextChild.getNextWords(nextPs)		
+			if len(dfsStack) + 1 < len(sentenceSpec):
+				nextPs = sentenceSpec[len(dfsStack) + 1]
+				unvisitedChildren = nextChild.getNextWords(nextPs)	
+			else:
+				unvisitedChildren = []
+
+				print currProb, currSent
+
+				if currProb > bestProb:
+					bestProb = currProb
+					bestSentence = currSent
+
+			dfsStack.append((currWord, currProb, currSent, unvisitedChildren)) 
 				
 		else:
 			dfsStack.pop()
 
+	return bestProb, bestSentence
+
+def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
+	currentNode = wordGraph[startingWord]
+
+	dfsStack = [] 
+	unvisitedChildren = len(currentNode.getNextWords(sentenceSpec[1]))
+	currSent = currentNode.word
+	currWord = currentNode.word
+	currProb = 1
+	dfsStack.append((currWord, currProb, currSent, unvisitedChildren))
+
+	bestProb = 0
+	bestSentence = ''
+
+	while len(dfsStack) != 0:
+		currWord, currProb, currSent, unvisitedChildren = dfsStack[-1]
+		currentNode = wordGraph[currWord]
+		depth = len(dfsStack) - 1
+
+		if unvisitedChildren > 0:
+			nextPs = sentenceSpec[depth + 1]
+
+			nextWord, nextProb = currentNode.getNextWords(nextPs)[unvisitedChildren - 1]
+
+			dfsStack[-1] = (currWord, currProb, currSent, unvisitedChildren - 1)
+			
+			if (nextWord not in wordGraph):
+				continue
+
+			nextChild = wordGraph[nextWord]
+
+			currWord = nextChild.word
+			currProb = nextProb*currProb
+			currSent = currSent + ' ' + currWord
+			depth += 1
+
+			if (depth + 1) >= len(sentenceSpec):
+				unvisitedChildren = 0
+				if currProb > bestProb:
+					bestProb = currProb
+					bestSentence = currSent
+			else:
+				nextPs = sentenceSpec[depth + 1]
+				unvisitedChildren = len(nextChild.getNextWords(nextPs))
+				dfsStack.append((currWord, currProb, currSent, unvisitedChildren)) 
+
+		else:
+			dfsStack.pop()
+
+	return bestProb, bestSentence
 
 def generate(startingWord, sentenceSpec, graph):
 	wordGraph = parse(graph) 
 
-	prob, sentence = breadthFirstSearch(startingWord, sentenceSpec, wordGraph)
+	bfsProb, bfsSentence = breadthFirstSearch(startingWord, sentenceSpec, wordGraph)
+	# print "Breadth First\n------------------------------------"
+	# print '"' + sentence + '" is the highest probability sentence (' + str(prob*100) + '%).'
 
-	return '"' + sentence + '" is the highest probability sentence (' + str(prob*10) + '%).'
+
+	dfsProb, dfsSentence = depthFirstSearch(startingWord, sentenceSpec, wordGraph)
+	# print "Depth First\n------------------------------------"
+	# print '"' + sentence + '" is the highest probability sentence (' + str(prob*100) + '%).'
+
+	return bfsProb, bfsSentence, dfsProb, dfsSentence
 
 open_file = open('input.txt', 'r')
 graph = open_file.read()
 
-print generate('a', ['DT', 'NN', 'VBD', 'NNP', 'IN', 'DT', 'NN'], graph)
+bfsProb, bfsSentence, dfsProb, dfsSentence = generate('a', ['DT', 'NN', 'VBD', 'NNP', 'IN', 'DT', 'NN'], graph)
+
+print "Breadth First:\n"
+print '"' + bfsSentence + '" is one of the highest probability sentences (' + str(bfsProb*100) + '%).'
+
+print ''
+
+print "Depth First:\n"
+print '"' + dfsSentence + '" is one of the highest probability sentences (' + str(dfsProb*100) + '%).'
 
 # running some git tests
+# bfs: a queen answered hans up the apple
