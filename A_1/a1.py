@@ -219,37 +219,34 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 		stepsRemaining = len(sentenceSpec) - len(currSent)
 		predictedProb = currProb * maxProb ** stepsRemaining
 
-		listEntry = (-predictedProb, currProb, wordKey, currSent)
+		listEntry = (-predictedProb, currProb, wordKey, list(currSent))
 		heapq.heappush(openList, listEntry)
 
 	while(True):
 		negPredictedProb, currProb, wordKey, currSent = heapq.heappop(openList)
 		predictedProb = -negPredictedProb
 
-		if currSent == None:
-			print negPredictedProb, currProb, wordKey, currSent
-			print openList
-
 		if len(currSent) == len(sentenceSpec): # end condition: complete sentence with best probability
-			return listToSentence(currSent), currProb
+			return currProb, listToSentence(currSent)
 
 		currentNode = wordGraph[wordKey]
 		depth = len(currSent)
 		children = currentNode.getNextWordKeys(sentenceSpec[depth])
 
 		for child in children:
-			wordKey, currProb = child
+			wordKey, newChildProb = child
 
 			if (wordKey not in wordGraph):
 				continue
 
 			currWord = wordGraph[wordKey].word
-			currChildSent = currSent.append(currWord)
+			currChildSent = currSent + [currWord]
 
 			stepsRemaining = len(sentenceSpec) - len(currSent)
-			predictedProb = currProb * maxProb ** stepsRemaining
+			predictedProb = currProb * newChildProb * maxProb ** stepsRemaining
+			currChildProb = currProb * newChildProb
 
-			listEntry = (-predictedProb, currProb, wordKey, currChildSent)
+			listEntry = (-predictedProb, currChildProb, wordKey, list(currChildSent))
 			heapq.heappush(openList, listEntry)
 
 def listToSentence(sentenceList):
@@ -279,19 +276,20 @@ open_file = open('input.txt', 'r')
 graph = open_file.read()
 
 bfsProb, bfsSentence, dfsProb, dfsSentence, hsProb, hsSentence = generate('a', ['DT', 'NN', 'VBD', 'NNP', 'IN', 'DT', 'NN'], graph)
+# bfsProb, bfsSentence, dfsProb, dfsSentence, hsProb, hsSentence = generate('benjamin', ['NNP', 'VBD', 'DT', 'JJS', 'NN'], graph)
 
 print "Breadth First:\n"
-print '"' + bfsSentence + '" is one of the highest probability sentences (' + str(bfsProb*100) + '%).'
+print '"' + bfsSentence + '" is one of the max probability sentences (' + str(bfsProb*100) + '%).'
 
 print ''
 
 print "Depth First:\n"
-print '"' + dfsSentence + '" is one of the highest probability sentences (' + str(dfsProb*100) + '%).'
+print '"' + dfsSentence + '" is one of the max probability sentences (' + str(dfsProb*100) + '%).'
 
 print ''
 
 print 'Heuristic Search\n'
-print '"' + hsSentence + '" is one of the highest probability sentences (' + str(hsProb*100) + '%).'
+print '"' + hsSentence + '" is one of the max probability sentences (' + str(hsProb*100) + '%).'
 
 # running some git tests
 # bfs: a queen answered hans up the apple
