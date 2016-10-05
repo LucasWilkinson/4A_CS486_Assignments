@@ -236,7 +236,7 @@ graph = open_file.read()
 
 # bfsProb, bfsSentence, dfsProb, dfsSentence, hsProb, hsSentence = generate('benjamin', ['NNP', 'VBD', 'DT', 'JJS', 'NN'], graph)
 
-searchStrategies = ["BREADTH_FIRST"]#, "DEPTH_FIRST", "HEURISTIC"]
+searchStrategies = ["BREADTH_FIRST", "DEPTH_FIRST", "HEURISTIC"]
 
 for searchStrategy in searchStrategies:
 	# prob, sentence, nodesVisited = generate('a', ['DT', 'NN', 'VBD', 'NNP', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS',], searchStrategy, graph)
