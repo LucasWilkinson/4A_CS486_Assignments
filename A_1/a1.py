@@ -1,25 +1,53 @@
 import heapq
 print "Assignment_1\n"
 
+"""
+This class represents a single node in our graph. 
+This node is to placed into a dictionary using the word concatenated with its part of 
+speech as the key. 
+"""
 class wordNode:
 	def __init__(self, word, ps):
+		"""
+		Initializer 
+		"""
 		self.word = word
 		self.ps = ps
 		self.nextWords = {}
 
 	def addNextWord(self, word, ps, prob):
+		"""
+		This function stores words that follow the node's word and organizes them by parts 
+		of speech
+		"""
 		if (ps in self.nextWords):
 			self.nextWords[ps].append((word+ps, prob))
 		else:
 			self.nextWords[ps] = [(word+ps, prob)]
 
 	def getNextWordKeys(self, ps):
+		"""
+		Description:
+			Finds all words that follow this node's word that have the part of speech ps.
+
+		Returns:
+			This function returns a list of words that follow this node's word. The list is a 
+			list of tuples with the format (wordkey, prob). 
+
+			Where wordkey represents the next word and its part of speech concatenated together 
+			(this should be used to index the dictionary that contains all of these nodes).
+
+			Where prob represents the probability this word follows the node's word.
+		"""
 		if (ps in self.nextWords):
 			return self.nextWords[ps]
 		else:
 			return []
 
 	def printNode(self):
+		"""
+		Prints the attributes of the node for debugging 
+		"""
 		print self.word, self.ps, self.nextWords
 
 def parse(graph):
@@ -50,6 +78,18 @@ def parse(graph):
 	return returnDict, highestProb
 
 def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
+	"""
+	Description:
+		Searches the passed in graph for a sentence starting with startingWord that complies with 
+		sentenceSpec and has the highest probability using a breadth first search strategy.
+
+	returns:
+		prob, sentence, nodesVisited
+
+		Where prob the probability the return sentence occurs.
+		Where sentence is the sentence found with the highest probability
+		Where nodesVisited represents the number of nodes (words) considered in the search
+	"""
 	nodeCount = 0
 	wordKey = startingWord+sentenceSpec[0]
 	currentNode = wordGraph[wordKey]
@@ -90,13 +130,21 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 			highestProb = prob
 			highestProbSent = sentence
 
-	# for index, item in enumerate(bfsQueue):
-	# 	if index%10 == 0:
-	# 		print item[2]
-
 	return highestProb, highestProbSent, nodeCount
 
 def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
+	"""
+	Description:
+		Searches the passed in graph for a sentence starting with startingWord that complies with 
+		sentenceSpec and has the highest probability using a depth first search strategy.
+
+	returns:
+		prob, sentence, nodesVisited
+
+		Where prob the probability the return sentence occurs.
+		Where sentence is the sentence found with the highest probability
+		Where nodesVisited represents the number of nodes (words) considered in the search
+	"""
 	nodeCount = 1
 	firstWordKey = startingWord+sentenceSpec[0]
 	currentNode = wordGraph[firstWordKey]
@@ -153,6 +201,22 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	return bestProb, bestSentence, nodeCount
 
 def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
+	"""
+	Description:
+		Searches the passed in graph for a sentence starting with startingWord that complies with 
+		sentenceSpec and has the highest probability using a heuristic search strategy (A*) with the
+		heuristic being the 
+			h(n) = maxProb^numWordsRemaing.
+		maxProb = max probability between any two words in the graph 
+		numWordsRemaing = the number of words still needed to complete the sentenceSpec
+
+	returns:
+		prob, sentence, nodesVisited
+
+		Where prob the probability the return sentence occurs.
+		Where sentence is the sentence found with the highest probability
+		Where nodesVisited represents the number of nodes (words) considered in the search
+	"""
 	nodeCount = 1
 	openList = []
 
@@ -234,8 +298,6 @@ def generate(startingWord, sentenceSpec, searchStrategy,  graph):
 open_file = open('input.txt', 'r')
 graph = open_file.read()
 
-# bfsProb, bfsSentence, dfsProb, dfsSentence, hsProb, hsSentence = generate('benjamin', ['NNP', 'VBD', 'DT', 'JJS', 'NN'], graph)
-
 searchStrategies = ["BREADTH_FIRST", "DEPTH_FIRST", "HEURISTIC"]
 
 for searchStrategy in searchStrategies:
@@ -249,16 +311,3 @@ for searchStrategy in searchStrategies:
 	print 'Sentence: ' + sentence
 	print 'Probability:' + str(prob*100) + '%'
 	print 'Number of nodes visited: ' + str(nodesVisited) + '\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
-
-# running some git tests
-# bfs: a queen answered hans up the apple
-
-
-# OUTPUT
-# Breadth First:
-
-# "a son thanked god for the apple" is one of the highest probability sentences (7.08856997623e-06%).
-
-# Depth First:
-
-# "a son thanked god for the water" is one of the highest probability sentences (7.08856997623e-06%).
