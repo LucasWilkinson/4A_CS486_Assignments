@@ -52,12 +52,13 @@ class wordNode:
 
 def parse(graph):
 	"""
-	This function takes the input word list and probability pairs and places them into a dictionary structure.
-	Each dictionary entry's key is the first word and its part of speech concatenated, and the value is a wordNode
-	containing the data of key. 
+	Description:
+		This function takes the input word list and probability pairs and places them into a dictionary structure.
+		Each dictionary entry's key is the first word and its part of speech concatenated, and the value is a wordNode
+		containing the data of key. 
 
-	The function then takes the next words from the input and places them into the 'nextWords' attribute dictionary.
-	While iterating through the list, the function also keeps track of the highest existing probability in the list.
+		The function then takes the next words from the input and places them into the 'nextWords' attribute dictionary.
+		While iterating through the list, the function also keeps track of the highest existing probability in the list.
 
 	returns: 
 		returnDict, highestProb
@@ -228,6 +229,16 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	return bestProb, bestSentence, nodesVisited
 
 def heuristic(currProb, maxProb, stepsRemaining):
+	"""
+	Description:
+		This function calculates the heuristic of the current sentence, the
+		highest probability it could have after being a complete sentence. 
+
+	returns: 
+		The heuristic, which is the product of the current sentence's probability
+		and the best probability in the input file to the exponent of the number
+		words remaining.
+	"""
 	return currProb * maxProb ** stepsRemaining
 
 def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
