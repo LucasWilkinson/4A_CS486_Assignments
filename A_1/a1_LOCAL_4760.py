@@ -53,19 +53,11 @@ class wordNode:
 
 def parse(graph):
 	"""
-	Description:
-		This function takes the input word list and probability pairs and places them into a dictionary structure.
-		Each dictionary entry's key is the first word and its part of speech concatenated, and the value is a wordNode
-		containing the data of key. 
+	This function takes the input word list and probability pairs and places them into a dictionary structure.
+	Each dictionary entry's key is the first word and its part of speech concatenated, and the value is a wordNode
+	containing the data of key. 
 
-		The function then takes the next words from the input and places them into the 'nextWords' attribute dictionary.
-		While iterating through the list, the function also keeps track of the highest existing probability in the list.
-
-	returns: 
-		returnDict, highestProb
-
-		The dictionary of words and their next words.
-		The highest probability existing in the input list.
+	The function then takes the next words from the input and places them into the 'nextWords' attribute dictionary.
 	"""
 
 	returnDict = {}
@@ -102,17 +94,12 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	returns:
 		prob, sentence, nodesVisited
 
-		Where prob the probability the return sentence occurs. If the sentence is invalid, 
-		a probability of -1 will be returned.
+		Where prob the probability the return sentence occurs.
 		Where sentence is the sentence found with the highest probability
 		Where nodesVisited represents the number of nodes (words) considered in the search
 	"""
 	nodesVisited = 0
 	wordKey = startingWord+sentenceSpec[0]
-
-	if (wordKey not in wordGraph):
-		return -1, '', nodesVisited
-
 	currentNode = wordGraph[wordKey]
 	
 	bfsQueue = []
@@ -145,7 +132,7 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 
 		wordsToPop = tempWordsToPop
 
-	highestProb = -1
+	highestProb = 0
 	highestProbSent = ''
 
 	for node, prob, sentence in bfsQueue:
@@ -164,17 +151,12 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	returns:
 		prob, sentence, nodesVisited
 
-		Where prob the probability the return sentence occurs. If the sentence is invalid, 
-		a probability of -1 will be returned.
+		Where prob the probability the return sentence occurs.
 		Where sentence is the sentence found with the highest probability
 		Where nodesVisited represents the number of nodes (words) considered in the search
 	"""
 	nodesVisited = 0
 	firstWordKey = startingWord+sentenceSpec[0]
-
-	if (firstWordKey not in wordGraph):
-		return -1, '', nodesVisited
-
 	currentNode = wordGraph[firstWordKey]
 
 	dfsStack = [] 
@@ -185,7 +167,7 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	dfsStack.append((firstWordKey, currProb, currSent, unvisitedChildren))
 	nodesVisited += 1
 
-	bestProb = -1
+	bestProb = 0
 	bestSentence = ''
 
 	while len(dfsStack) != 0:
@@ -256,16 +238,6 @@ class maxHeap:
 
 
 def heuristic(currProb, maxProb, stepsRemaining):
-	"""
-	Description:
-		This function calculates the heuristic of the current sentence, the
-		highest probability it could have after being a complete sentence. 
-
-	returns: 
-		The heuristic, which is the product of the current sentence's probability
-		and the best probability in the input file to the exponent of the number
-		words remaining.
-	"""
 	return currProb * maxProb ** stepsRemaining
 
 def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
@@ -281,8 +253,7 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 	returns:
 		prob, sentence, nodesVisited
 
-		Where prob the probability the return sentence occurs. If the sentence is invalid, 
-		a probability of -1 will be returned.
+		Where prob the probability the return sentence occurs.
 		Where sentence is the sentence found with the highest probability
 		Where nodesVisited represents the number of nodes (words) considered in the search
 	"""
@@ -290,12 +261,7 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 	openList = maxHeap()
 
 	firstWordKey = startingWord+sentenceSpec[0]
-
-	if (firstWordKey not in wordGraph):
-		return -1, '', nodesVisited
-
 	currentNode = wordGraph[firstWordKey]
-	nodesVisited += 1
 
 	children = currentNode.getNextWordKeys(sentenceSpec[1])
 
@@ -321,7 +287,7 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 		try:
 			predictedProb, currProb, wordKey, currSent = openList.pop()
 		except IndexError:
-			return -1, '', nodesVisited
+			return 0, '', nodesVisited
 
 		if len(currSent) == len(sentenceSpec): # end condition: complete sentence with best probability
 			return currProb, listToSentence(currSent), nodesVisited
