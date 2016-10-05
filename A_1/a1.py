@@ -69,7 +69,6 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 				continue
 
 			nextWordsKeys = wordGraph[currentWordKey].getNextWordKeys(ps)
-			#tempWordsToPop += len(nextWordsKeys)
 
 			for wordKey, prob in nextWordsKeys:
 
@@ -237,11 +236,14 @@ graph = open_file.read()
 
 # bfsProb, bfsSentence, dfsProb, dfsSentence, hsProb, hsSentence = generate('benjamin', ['NNP', 'VBD', 'DT', 'JJS', 'NN'], graph)
 
-searchStrategies = ["BREADTH_FIRST", "DEPTH_FIRST", "HEURISTIC"]
+searchStrategies = ["BREADTH_FIRST"]#, "DEPTH_FIRST", "HEURISTIC"]
 
 for searchStrategy in searchStrategies:
-	prob, sentence, nodesVisited = generate('a', ['DT', 'NN', 'VBD', 'NNP', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS',], searchStrategy, graph)
-
+	# prob, sentence, nodesVisited = generate('a', ['DT', 'NN', 'VBD', 'NNP', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS',], searchStrategy, graph)
+	# prob, sentence, nodesVisited = generate('benjamin', ['NNP','VBD','DT','NN'], searchStrategy, graph)
+	# prob, sentence, nodesVisited = generate('a', ['DT','NN','VBD','NNP'], searchStrategy, graph)
+	# prob, sentence, nodesVisited = generate('benjamin', ['NNP','VBD','DT','JJS','NN'], searchStrategy, graph)
+	prob, sentence, nodesVisited = generate('a', ['DT','NN','VBD','NNP','IN','DT','NN'], searchStrategy, graph)
 
 	print '-' + searchStrategy + '-'
 	print 'Sentence: ' + sentence
