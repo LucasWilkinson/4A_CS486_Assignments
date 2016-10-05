@@ -174,6 +174,8 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 		Where nodesVisited represents the number of nodes (words) considered in the search
 	"""
 	nodesVisited = 0
+	dfsStack = [] 
+	
 	firstWordKey = startingWord+sentenceSpec[0]
 
 	if (firstWordKey not in wordGraph):
@@ -181,7 +183,6 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 
 	currentNode = wordGraph[firstWordKey]
 
-	dfsStack = [] 
 	unvisitedChildren = len(currentNode.getNextWordKeys(sentenceSpec[1]))
 	currSent = currentNode.word
 	currWord = currentNode.word
@@ -218,7 +219,9 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 			depth += 1
 			nodesVisited += 1
 
-			if (depth + 1) >= len(sentenceSpec):
+			# If we are at the end of our sentenceSpec see if this complete sentence is
+			# better then the last best complete sentence 
+			if depth >= len(sentenceSpec) - 1:
 				unvisitedChildren = 0
 				if currProb > bestProb:
 					bestProb = currProb
@@ -244,6 +247,9 @@ class maxHeap:
 		self.heap = []
 
 	def push(self, predictedProb, currProb, wordKey, currSent):
+		"""
+		Pushes a new entry onto the max heap. The heap is sorted by predicted probability (predictedProb)
+		"""
 		# the predicted prob is made negative because heapq operates as a min heap so by making the 
 		# probability negative so we can make it behave like a max heap, we just need to multiply it 
 		# by negative one when we pop
@@ -251,6 +257,10 @@ class maxHeap:
 		heapq.heappush(self.heap, listEntry)
 
 	def pop(self): 
+		"""
+		Pops value with the max predicted probability. 
+		Raises an index error if the heap is empty.
+		"""
 		negPredictedProb, currProb, wordKey, currSent = heapq.heappop(self.heap)
 		# the popped probability is negative (discussed in the push function), so must be 
 		# so must be multiplied by negative one to rectify it
@@ -325,6 +335,7 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 		openList.push(predictedProb, currProb, wordKey, list(currSent))
 		nodesVisited += 1
 
+	# main search loop
 	while(True):
 		try:
 			predictedProb, currProb, wordKey, currSent = openList.pop()
@@ -348,9 +359,9 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 			currChildSent = currSent + [currWord]
 
 			stepsRemaining = len(sentenceSpec) - len(currSent)
-			predictedProb = heuristic(currProb * newChildProb, maxProb, stepsRemaining)
 			currChildProb = currProb * newChildProb
-
+			predictedProb = heuristic(currChildProb, maxProb, stepsRemaining)
+			
 			openList.push(predictedProb, currChildProb, wordKey, list(currChildSent))
 			nodesVisited += 1
 
@@ -390,5 +401,5 @@ for searchStrategy in searchStrategies:
 
 	print '-' + searchStrategy + '-'
 	print 'Sentence: ' + sentence
-	print 'Probability:' + str(prob*100) + '%'
+	print 'Probability: ' + str(prob*100) + '%'
 	print 'Number of nodes visited: ' + str(nodesVisited) + '\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
