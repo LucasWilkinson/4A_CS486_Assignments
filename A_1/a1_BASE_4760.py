@@ -1,13 +1,12 @@
 import heapq
 print "Assignment_1\n"
 
+"""
+This class represents a single node in our graph. 
+This node is to placed into a dictionary using the word concatenated with its part of 
+speech as the key. 
+"""
 class wordNode:
-	"""
-	This class represents a single node in our graph. 
-	This node is to placed into a dictionary using the word concatenated with its part of 
-	speech as the key. 
-	"""
-
 	def __init__(self, word, ps):
 		"""
 		Initializer 
@@ -58,13 +57,6 @@ def parse(graph):
 	containing the data of key. 
 
 	The function then takes the next words from the input and places them into the 'nextWords' attribute dictionary.
-	While iterating through the list, the function also keeps track of the highest existing probability in the list.
-
-	returns: 
-		returnDict, highestProb
-
-		The dictionary of words and their next words.
-		The highest probability existing in the input list.
 	"""
 
 	returnDict = {}
@@ -101,17 +93,12 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	returns:
 		prob, sentence, nodesVisited
 
-		Where prob the probability the return sentence occurs. If the sentence is invalid, 
-		a probability of -1 will be returned.
+		Where prob the probability the return sentence occurs.
 		Where sentence is the sentence found with the highest probability
 		Where nodesVisited represents the number of nodes (words) considered in the search
 	"""
 	nodesVisited = 0
 	wordKey = startingWord+sentenceSpec[0]
-
-	if (wordKey not in wordGraph):
-		return -1, '', nodesVisited
-
 	currentNode = wordGraph[wordKey]
 	
 	bfsQueue = []
@@ -144,7 +131,7 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 
 		wordsToPop = tempWordsToPop
 
-	highestProb = -1
+	highestProb = 0
 	highestProbSent = ''
 
 	for node, prob, sentence in bfsQueue:
@@ -163,17 +150,12 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	returns:
 		prob, sentence, nodesVisited
 
-		Where prob the probability the return sentence occurs. If the sentence is invalid, 
-		a probability of -1 will be returned.
+		Where prob the probability the return sentence occurs.
 		Where sentence is the sentence found with the highest probability
 		Where nodesVisited represents the number of nodes (words) considered in the search
 	"""
 	nodesVisited = 0
 	firstWordKey = startingWord+sentenceSpec[0]
-
-	if (firstWordKey not in wordGraph):
-		return -1, '', nodesVisited
-
 	currentNode = wordGraph[firstWordKey]
 
 	dfsStack = [] 
@@ -184,7 +166,7 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	dfsStack.append((firstWordKey, currProb, currSent, unvisitedChildren))
 	nodesVisited += 1
 
-	bestProb = -1
+	bestProb = 0
 	bestSentence = ''
 
 	while len(dfsStack) != 0:
@@ -228,32 +210,6 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 
 	return bestProb, bestSentence, nodesVisited
 
-
-class maxHeap:
-	"""
-	This class is a max heap wrapper for the heapq library in python to be used by the 
-	heuristicSearch function.
-	"""
-
-	def __init__(self):
-		self.heap = []
-
-	def push(self, predictedProb, currProb, wordKey, currSent):
-		# the predicted prob is made negative because heapq operates as a min heap so by making the 
-		# probability negative so we can make it behave like a max heap, we just need to multiply it 
-		# by negative one when we pop
-		listEntry = (-predictedProb, currProb, wordKey, list(currSent))
-		heapq.heappush(self.heap, listEntry)
-
-	def pop(self): 
-		negPredictedProb, currProb, wordKey, currSent = heapq.heappop(self.heap)
-		# the popped probability is negative (discussed in the push function), so must be 
-		# so must be multiplied by negative one to rectify it
-		predictedProb = -negPredictedProb
-		return predictedProb, currProb, wordKey, currSent
-
-
-
 def heuristic(currProb, maxProb, stepsRemaining):
 	return currProb * maxProb ** stepsRemaining
 
@@ -270,25 +226,18 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 	returns:
 		prob, sentence, nodesVisited
 
-		Where prob the probability the return sentence occurs. If the sentence is invalid, 
-		a probability of -1 will be returned.
+		Where prob the probability the return sentence occurs.
 		Where sentence is the sentence found with the highest probability
 		Where nodesVisited represents the number of nodes (words) considered in the search
 	"""
 	nodesVisited = 1
-	openList = maxHeap()
+	openList = []
 
 	firstWordKey = startingWord+sentenceSpec[0]
-
-	if (firstWordKey not in wordGraph):
-		return -1, '', nodesVisited
-
 	currentNode = wordGraph[firstWordKey]
-	nodesVisited += 1
 
 	children = currentNode.getNextWordKeys(sentenceSpec[1])
 
-	# initializing the heap
 	for child in children:
 		wordKey, currProb = child
 
@@ -303,14 +252,17 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 		stepsRemaining = len(sentenceSpec) - len(currSent)
 		predictedProb = heuristic(currProb, maxProb, stepsRemaining)
 
-		openList.push(predictedProb, currProb, wordKey, list(currSent))
+		listEntry = (-predictedProb, currProb, wordKey, list(currSent))
+		heapq.heappush(openList, listEntry)
 		nodesVisited += 1
 
 	while(True):
 		try:
-			predictedProb, currProb, wordKey, currSent = openList.pop()
+			negPredictedProb, currProb, wordKey, currSent = heapq.heappop(openList)
 		except IndexError:
-			return -1, '', nodesVisited
+			return 0, '', nodesVisited
+
+		predictedProb = -negPredictedProb
 
 		if len(currSent) == len(sentenceSpec): # end condition: complete sentence with best probability
 			return currProb, listToSentence(currSent), nodesVisited
@@ -332,7 +284,8 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 			predictedProb = heuristic(currProb * newChildProb, maxProb, stepsRemaining)
 			currChildProb = currProb * newChildProb
 
-			openList.push(predictedProb, currChildProb, wordKey, list(currChildSent))
+			listEntry = (-predictedProb, currChildProb, wordKey, list(currChildSent))
+			heapq.heappush(openList, listEntry)
 			nodesVisited += 1
 
 def listToSentence(sentenceList):

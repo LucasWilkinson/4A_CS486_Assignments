@@ -275,8 +275,13 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 		Where sentence is the sentence found with the highest probability
 		Where nodesVisited represents the number of nodes (words) considered in the search
 	"""
+<<<<<<< HEAD
 	nodesVisited = 1
 	openList = maxHeap()
+=======
+	nodesVisited = 0
+	openList = []
+>>>>>>> f74428d98619176a8aa7eb587d34ca582ae6adbe
 
 	firstWordKey = startingWord+sentenceSpec[0]
 
