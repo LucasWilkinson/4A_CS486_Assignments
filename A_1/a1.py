@@ -1,12 +1,13 @@
 import heapq
 print "Assignment_1\n"
 
-"""
-This class represents a single node in our graph. 
-This node is to placed into a dictionary using the word concatenated with its part of 
-speech as the key. 
-"""
 class wordNode:
+	"""
+	This class represents a single node in our graph. 
+	This node is to placed into a dictionary using the word concatenated with its part of 
+	speech as the key. 
+	"""
+
 	def __init__(self, word, ps):
 		"""
 		Initializer 
@@ -210,6 +211,32 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 
 	return bestProb, bestSentence, nodesVisited
 
+
+class maxHeap:
+	"""
+	This class is a max heap wrapper for the heapq library in python to be used by the 
+	heuristicSearch function.
+	"""
+
+	def __init__(self):
+		self.heap = []
+
+	def push(self, predictedProb, currProb, wordKey, currSent):
+		# the predicted prob is made negative because heapq operates as a min heap so by making the 
+		# probability negative so we can make it behave like a max heap, we just need to multiply it 
+		# by negative one when we pop
+		listEntry = (-predictedProb, currProb, wordKey, list(currSent))
+		heapq.heappush(self.heap, listEntry)
+
+	def pop(self): 
+		negPredictedProb, currProb, wordKey, currSent = heapq.heappop(self.heap)
+		# the popped probability is negative (discussed in the push function), so must be 
+		# so must be multiplied by negative one to rectify it
+		predictedProb = -negPredictedProb
+		return predictedProb, currProb, wordKey, currSent
+
+
+
 def heuristic(currProb, maxProb, stepsRemaining):
 	return currProb * maxProb ** stepsRemaining
 
@@ -231,13 +258,14 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 		Where nodesVisited represents the number of nodes (words) considered in the search
 	"""
 	nodesVisited = 1
-	openList = []
+	openList = maxHeap()
 
 	firstWordKey = startingWord+sentenceSpec[0]
 	currentNode = wordGraph[firstWordKey]
 
 	children = currentNode.getNextWordKeys(sentenceSpec[1])
 
+	# initializing the heap
 	for child in children:
 		wordKey, currProb = child
 
@@ -252,17 +280,14 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 		stepsRemaining = len(sentenceSpec) - len(currSent)
 		predictedProb = heuristic(currProb, maxProb, stepsRemaining)
 
-		listEntry = (-predictedProb, currProb, wordKey, list(currSent))
-		heapq.heappush(openList, listEntry)
+		openList.push(predictedProb, currProb, wordKey, list(currSent))
 		nodesVisited += 1
 
 	while(True):
 		try:
-			negPredictedProb, currProb, wordKey, currSent = heapq.heappop(openList)
+			predictedProb, currProb, wordKey, currSent = openList.pop()
 		except IndexError:
 			return 0, '', nodesVisited
-
-		predictedProb = -negPredictedProb
 
 		if len(currSent) == len(sentenceSpec): # end condition: complete sentence with best probability
 			return currProb, listToSentence(currSent), nodesVisited
@@ -284,8 +309,7 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 			predictedProb = heuristic(currProb * newChildProb, maxProb, stepsRemaining)
 			currChildProb = currProb * newChildProb
 
-			listEntry = (-predictedProb, currChildProb, wordKey, list(currChildSent))
-			heapq.heappush(openList, listEntry)
+			openList.push(predictedProb, currChildProb, wordKey, list(currChildSent))
 			nodesVisited += 1
 
 def listToSentence(sentenceList):
