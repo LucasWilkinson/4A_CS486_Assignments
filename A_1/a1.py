@@ -98,6 +98,8 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	Description:
 		Searches the passed in graph for a sentence starting with startingWord that complies with 
 		sentenceSpec and has the highest probability using a breadth first search strategy.
+		A queue data structure is used here to keep track of words that have been traversed.
+		When a word tuple is dequeued, its data is considered and it's children are queued.
 
 	returns:
 		prob, sentence, nodesVisited
@@ -160,6 +162,8 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	Description:
 		Searches the passed in graph for a sentence starting with startingWord that complies with 
 		sentenceSpec and has the highest probability using a depth first search strategy.
+		A stack data structure is used here to keep track of the words that have been traversed. 
+		When a word tuple is popped, its data is considered and it's children are pushed onto the stack.
 
 	returns:
 		prob, sentence, nodesVisited
@@ -259,7 +263,7 @@ def heuristic(currProb, maxProb, stepsRemaining):
 	"""
 	Description:
 		This function calculates the heuristic of the current sentence, the
-		highest probability it could have after being a complete sentence. 
+		highest probability it could have after being a complete sentence.
 
 	returns: 
 		The heuristic, which is the product of the current sentence's probability
@@ -277,6 +281,10 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 			h(n) = maxProb^numWordsRemaing.
 		maxProb = max probability between any two words in the graph 
 		numWordsRemaing = the number of words still needed to complete the sentenceSpec
+
+		A maxheap data structure is used to keep track of the open list so
+		that the next pop will always return the sentence that currently
+		has the highest probability.
 
 	returns:
 		prob, sentence, nodesVisited
