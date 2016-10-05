@@ -170,6 +170,8 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 		Where nodesVisited represents the number of nodes (words) considered in the search
 	"""
 	nodesVisited = 0
+	dfsStack = [] 
+	
 	firstWordKey = startingWord+sentenceSpec[0]
 
 	if (firstWordKey not in wordGraph):
@@ -177,7 +179,6 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 
 	currentNode = wordGraph[firstWordKey]
 
-	dfsStack = [] 
 	unvisitedChildren = len(currentNode.getNextWordKeys(sentenceSpec[1]))
 	currSent = currentNode.word
 	currWord = currentNode.word
@@ -214,7 +215,9 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 			depth += 1
 			nodesVisited += 1
 
-			if (depth + 1) >= len(sentenceSpec):
+			# If we are at the end of our sentenceSpec see if this complete sentence is
+			# better then the last best complete sentence 
+			if depth >= len(sentenceSpec) - 1:
 				unvisitedChildren = 0
 				if currProb > bestProb:
 					bestProb = currProb
@@ -317,6 +320,7 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 		openList.push(predictedProb, currProb, wordKey, list(currSent))
 		nodesVisited += 1
 
+	# main search loop
 	while(True):
 		try:
 			predictedProb, currProb, wordKey, currSent = openList.pop()
@@ -340,9 +344,9 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 			currChildSent = currSent + [currWord]
 
 			stepsRemaining = len(sentenceSpec) - len(currSent)
-			predictedProb = heuristic(currProb * newChildProb, maxProb, stepsRemaining)
 			currChildProb = currProb * newChildProb
-
+			predictedProb = heuristic(currChildProb, maxProb, stepsRemaining)
+			
 			openList.push(predictedProb, currChildProb, wordKey, list(currChildSent))
 			nodesVisited += 1
 
