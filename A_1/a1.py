@@ -50,11 +50,13 @@ def parse(graph):
 	return returnDict, highestProb
 
 def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
+	nodeCount = 0
 	wordKey = startingWord+sentenceSpec[0]
 	currentNode = wordGraph[wordKey]
 	
 	bfsQueue = []
 	bfsQueue.append((wordKey, 1, currentNode.word))
+	nodeCount += 1
 	wordsToPop = 1
 	
 	for ps in sentenceSpec[1:]:
@@ -77,6 +79,7 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 				tempWordsToPop += 1		
 				newSentence = currentSentence + ' ' + wordGraph[wordKey].word
 				bfsQueue.append((wordKey, currentProb*prob, newSentence))
+				nodeCount += 1
 
 		wordsToPop = tempWordsToPop
 
@@ -92,7 +95,7 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	# 	if index%10 == 0:
 	# 		print item[2]
 
-	return highestProb, highestProbSent
+	return highestProb, highestProbSent, nodeCount
 
 def zzdepthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	currentNode = wordGraph[startingWord]
@@ -143,9 +146,10 @@ def zzdepthFirstSearch(startingWord, sentenceSpec, wordGraph):
 		else:
 			dfsStack.pop()
 
-	return bestProb, bestSentence
+	return bestProb, bestSentence, 0
 
 def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
+	nodeCount = 1
 	firstWordKey = startingWord+sentenceSpec[0]
 	currentNode = wordGraph[firstWordKey]
 
@@ -183,6 +187,7 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 			currProb = nextProb*currProb
 			currSent = currSent + ' ' + currWord
 			depth += 1
+			nodeCount += 1
 
 			if (depth + 1) >= len(sentenceSpec):
 				unvisitedChildren = 0
@@ -197,9 +202,10 @@ def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 		else:
 			dfsStack.pop()
 
-	return bestProb, bestSentence
+	return bestProb, bestSentence, nodeCount
 
 def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
+	nodeCount = 1
 	openList = []
 
 	firstWordKey = startingWord+sentenceSpec[0]
@@ -221,13 +227,18 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 
 		listEntry = (-predictedProb, currProb, wordKey, list(currSent))
 		heapq.heappush(openList, listEntry)
+		nodeCount += 1
 
 	while(True):
-		negPredictedProb, currProb, wordKey, currSent = heapq.heappop(openList)
+		try:
+			negPredictedProb, currProb, wordKey, currSent = heapq.heappop(openList)
+		except IndexError:
+			return 0, '', nodeCount
+
 		predictedProb = -negPredictedProb
 
 		if len(currSent) == len(sentenceSpec): # end condition: complete sentence with best probability
-			return currProb, listToSentence(currSent)
+			return currProb, listToSentence(currSent), nodeCount
 
 		currentNode = wordGraph[wordKey]
 		depth = len(currSent)
@@ -248,48 +259,45 @@ def heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb):
 
 			listEntry = (-predictedProb, currChildProb, wordKey, list(currChildSent))
 			heapq.heappush(openList, listEntry)
+			nodeCount += 1
 
 def listToSentence(sentenceList):
 	sentence = ''
 	for word in sentenceList:
-		sentence = sentence + ' ' + word
-	return sentence
+		sentence = sentence + word + ' '
+	return sentence.rstrip()
 
-def generate(startingWord, sentenceSpec, graph):
+def generate(startingWord, sentenceSpec, searchStrategy,  graph):
 	wordGraph, maxProb = parse(graph) 
+	
+	prob = 0
+	sentence = ' '
+	nodesVisited = 0
 
-	bfsProb, bfsSentence = breadthFirstSearch(startingWord, sentenceSpec, wordGraph)
-	# print "Breadth First\n------------------------------------"
-	# print '"' + sentence + '" is the highest probability sentence (' + str(prob*100) + '%).'
+	if (searchStrategy == "BREADTH_FIRST"):
+		prob, sentence, nodesVisited = breadthFirstSearch(startingWord, sentenceSpec, wordGraph)
+	elif (searchStrategy == "DEPTH_FIRST"):
+		prob, sentence, nodesVisited = depthFirstSearch(startingWord, sentenceSpec, wordGraph)
+	elif (searchStrategy == "HEURISTIC"):
+		prob, sentence, nodesVisited = heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb)
 
-	dfsProb, dfsSentence = depthFirstSearch(startingWord, sentenceSpec, wordGraph)
-	# dfsProb = 1
-	# dfsSentence = "Benjamin took a husband"
-	# print "Depth First\n------------------------------------"
-	# print '"' + sentence + '" is the highest probability sentence (' + str(prob*100) + '%).'
-
-	hsProb, hsSentence = heuristicSearch(startingWord, sentenceSpec, wordGraph, maxProb)
-
-	return bfsProb, bfsSentence, dfsProb, dfsSentence, hsProb, hsSentence
+	return prob, sentence, nodesVisited
 
 open_file = open('input.txt', 'r')
 graph = open_file.read()
 
-bfsProb, bfsSentence, dfsProb, dfsSentence, hsProb, hsSentence = generate('a', ['DT', 'NN', 'VBD', 'NNP', 'IN', 'DT', 'NN'], graph)
 # bfsProb, bfsSentence, dfsProb, dfsSentence, hsProb, hsSentence = generate('benjamin', ['NNP', 'VBD', 'DT', 'JJS', 'NN'], graph)
 
-print "Breadth First:\n"
-print '"' + bfsSentence + '" is one of the max probability sentences (' + str(bfsProb*100) + '%).'
+searchStrategies = ["BREADTH_FIRST", "DEPTH_FIRST", "HEURISTIC"]
 
-print ''
+for searchStrategy in searchStrategies:
+	prob, sentence, nodesVisited = generate('a', ['DT', 'NN', 'VBD', 'NNP', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS',], searchStrategy, graph)
 
-print "Depth First:\n"
-print '"' + dfsSentence + '" is one of the max probability sentences (' + str(dfsProb*100) + '%).'
 
-print ''
+	print searchStrategy + ':\n'
+	print '"' + sentence + '" is one of the max probability sentences (' + str(prob*100) + '%), nodes visited = ' + str(nodesVisited) + '.'
 
-print 'Heuristic Search\n'
-print '"' + hsSentence + '" is one of the max probability sentences (' + str(hsProb*100) + '%).'
+	print ''
 
 # running some git tests
 # bfs: a queen answered hans up the apple
