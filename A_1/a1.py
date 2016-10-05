@@ -57,6 +57,13 @@ def parse(graph):
 	containing the data of key. 
 
 	The function then takes the next words from the input and places them into the 'nextWords' attribute dictionary.
+	While iterating through the list, the function also keeps track of the highest existing probability in the list.
+
+	returns: 
+		returnDict, highestProb
+
+		The dictionary of words and their next words.
+		The highest probability existing in the input list.
 	"""
 
 	returnDict = {}
