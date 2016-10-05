@@ -243,6 +243,9 @@ class maxHeap:
 		self.heap = []
 
 	def push(self, predictedProb, currProb, wordKey, currSent):
+		"""
+		Pushes a new entry onto the max heap. The heap is sorted by predicted probability (predictedProb)
+		"""
 		# the predicted prob is made negative because heapq operates as a min heap so by making the 
 		# probability negative so we can make it behave like a max heap, we just need to multiply it 
 		# by negative one when we pop
@@ -250,6 +253,10 @@ class maxHeap:
 		heapq.heappush(self.heap, listEntry)
 
 	def pop(self): 
+		"""
+		Pops value with the max predicted probability. 
+		Raises an index error if the heap is empty.
+		"""
 		negPredictedProb, currProb, wordKey, currSent = heapq.heappop(self.heap)
 		# the popped probability is negative (discussed in the push function), so must be 
 		# so must be multiplied by negative one to rectify it
@@ -386,5 +393,5 @@ for searchStrategy in searchStrategies:
 
 	print '-' + searchStrategy + '-'
 	print 'Sentence: ' + sentence
-	print 'Probability:' + str(prob*100) + '%'
+	print 'Probability: ' + str(prob*100) + '%'
 	print 'Number of nodes visited: ' + str(nodesVisited) + '\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
