@@ -97,57 +97,6 @@ def breadthFirstSearch(startingWord, sentenceSpec, wordGraph):
 
 	return highestProb, highestProbSent, nodeCount
 
-def zzdepthFirstSearch(startingWord, sentenceSpec, wordGraph):
-	currentNode = wordGraph[startingWord]
-
-	dfsStack = [] 
-	unvisitedChildren = currentNode.getNextWordKeys(sentenceSpec[1])
-	print sentenceSpec[1], unvisitedChildren
-	currSent = currentNode.word
-	currWord = currentNode.word
-	currProb = 1
-	dfsStack.append((currWord, currProb, currSent, unvisitedChildren))
-
-	bestProb = 0
-	bestSentence = ''
-
-	while len(dfsStack) != 0:
-		currWord, currProb, currSent, unvisitedChildren = dfsStack[-1]
-		
-		if len(unvisitedChildren) > 0:
-			# pop the next unvisited child from the stack entry
-			# NOTE: unvisitedChildren is a copy of dfsStack[-1][3], however for 
-			# here we use dfsStack[-1][3] so it updates the actual stack entry
-			nextWord, nextProb = dfsStack[-1][3].pop(0)
-
-			if (nextWord not in wordGraph):
-				continue
-
-			nextChild = wordGraph[nextWord]
-
-			currWord = nextChild.word
-			currProb = nextProb*currProb
-			currSent = currSent + ' ' + currWord
-
-			if len(dfsStack) + 1 < len(sentenceSpec):
-				nextPs = sentenceSpec[len(dfsStack) + 1]
-				unvisitedChildren = nextChild.getNextWordKeys(nextPs)	
-			else:
-				unvisitedChildren = []
-
-				print currProb, currSent
-
-				if currProb > bestProb:
-					bestProb = currProb
-					bestSentence = currSent
-
-			dfsStack.append((currWord, currProb, currSent, unvisitedChildren)) 
-				
-		else:
-			dfsStack.pop()
-
-	return bestProb, bestSentence, 0
-
 def depthFirstSearch(startingWord, sentenceSpec, wordGraph):
 	nodeCount = 1
 	firstWordKey = startingWord+sentenceSpec[0]
@@ -294,10 +243,10 @@ for searchStrategy in searchStrategies:
 	prob, sentence, nodesVisited = generate('a', ['DT', 'NN', 'VBD', 'NNP', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS', 'NNS',], searchStrategy, graph)
 
 
-	print searchStrategy + ':\n'
-	print '"' + sentence + '" is one of the max probability sentences (' + str(prob*100) + '%), nodes visited = ' + str(nodesVisited) + '.'
-
-	print ''
+	print '-' + searchStrategy + '-'
+	print 'Sentence: ' + sentence
+	print 'Probability:' + str(prob*100) + '%'
+	print 'Number of nodes visited: ' + str(nodesVisited) + '\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
 
 # running some git tests
 # bfs: a queen answered hans up the apple
