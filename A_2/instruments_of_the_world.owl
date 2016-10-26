@@ -13,6 +13,85 @@
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasFrets -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasFrets">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasStrings"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMaterial -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMaterial">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMethodOfPlay -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMethodOfPlay">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasNumStrings -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasNumStrings">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasStrings"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasStrings -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasStrings">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasWindPitchControl -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasWindPitchControl">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
     // Classes
     //
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -29,10 +108,26 @@
     
 
 
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Alto -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Alto">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SoundRegister"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Asia -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Asia">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#ContinentOfOrigin"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Bass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Bass">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SoundRegister"/>
     </owl:Class>
     
 
@@ -49,6 +144,50 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Brass">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wind"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMaterial"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Metal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMethodOfPlay"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#MouthPiece"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SoundRegister"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#WindPitchControl"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Cello -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Cello">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Tenor"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Italy"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -57,6 +196,46 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#ContinentOfOrigin">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Heritage"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Didgeridoo -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Didgeridoo">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#MiscWind"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMaterial"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wood"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Australia"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#DoubleBass -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#DoubleBass">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Bass"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Italy"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -77,25 +256,59 @@
     
 
 
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#FrenchHorn -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#FrenchHorn">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Brass"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Alto"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasWindPitchControl"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Valves"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#France"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Frets -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Frets">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Properties"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Strings"/>
     </owl:Class>
     
 
 
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Heritage -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Heritage">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Properties"/>
-    </owl:Class>
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Heritage"/>
     
 
 
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Instrument -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Instrument"/>
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Instrument">
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Properties"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Keys -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Keys">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#WindPitchControl"/>
+    </owl:Class>
     
 
 
@@ -115,9 +328,9 @@
     
 
 
-    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Metallic -->
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Metal -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Metallic">
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Metal">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Material"/>
     </owl:Class>
     
@@ -135,6 +348,14 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#MiscWind">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wind"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Mixed -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Mixed">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Instrument"/>
     </owl:Class>
     
 
@@ -158,7 +379,7 @@
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NumStrings -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NumStrings">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Properties"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Strings"/>
     </owl:Class>
     
 
@@ -171,10 +392,66 @@
     
 
 
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#String"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasFrets"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Frets"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMaterial"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wood"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMethodOfPlay"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Bowed"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasNumStrings"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#4_string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Percussion -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Percussion">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Instrument"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Strings"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#WindPitchControl"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -201,6 +478,30 @@
     
 
 
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Slide -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Slide">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#WindPitchControl"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Soprano -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Soprano">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SoundRegister"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SoundRegister -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SoundRegister">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Properties"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SouthAmerica -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SouthAmerica">
@@ -209,10 +510,96 @@
     
 
 
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SteelDrum -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SteelDrum">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Percussion"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMaterial"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Metal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMethodOfPlay"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Mallet"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Trinidad"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#String -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#String">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Instrument"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#WindPitchControl"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Strings"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Strings -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Strings">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Properties"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Strummed -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Strummed">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#MethodOfPlay"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Tenor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Tenor">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SoundRegister"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Trombone -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Trombone">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Brass"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Tenor"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasWindPitchControl"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Slide"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -221,6 +608,106 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Trumpet">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Brass"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Soprano"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasWindPitchControl"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Valves"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Egypt"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Tuba -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Tuba">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Brass"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Bass"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasWindPitchControl"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Valves"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#France"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Valves -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Valves">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#WindPitchControl"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Viola -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Viola">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Alto"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Italy"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Violin -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Violin">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Soprano"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasCountryOfOrigin"/>
+                <owl:hasValue rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Italy"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Violoncello -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Violoncello">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral"/>
     </owl:Class>
     
 
@@ -229,13 +716,31 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wind">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Instrument"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:complementOf>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasProperty"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Strings"/>
+                    </owl:Restriction>
+                </owl:complementOf>
+            </owl:Class>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
 
-    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wooden -->
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#WindPitchControl -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wooden">
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#WindPitchControl">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Properties"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wood -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wood">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Material"/>
     </owl:Class>
     
@@ -260,25 +765,163 @@
     
 
 
-    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Trumpet -->
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Australia -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Trumpet">
-        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Brass"/>
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Australia">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Oceania"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Annotations
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Canada -->
 
-    <rdf:Description rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Trumpet">
-        <rdfs:comment>Lots of spit</rdfs:comment>
-    </rdf:Description>
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Canada">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NorthAmerica"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#China -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#China">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Asia"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Egypt -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Egypt">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Africa"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#England -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#England">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Europe"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#France -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#France">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Europe"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Germany -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Germany">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Europe"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#India -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#India">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Asia"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Italy -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Italy">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Europe"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Japan -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Japan">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Asia"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Korea -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Korea">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Asia"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Trinidad -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Trinidad">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#SouthAmerica"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#USA -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#USA">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NorthAmerica"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#lots_of_strings -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#lots_of_strings">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NumStrings"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#0_string -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#0_string">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NumStrings"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#1_string -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#1_string">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NumStrings"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#2_string -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#2_string">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NumStrings"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#3_string -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#3_string">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NumStrings"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#4_string -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#4_string">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NumStrings"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#5_string -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#5_string">
+        <rdf:type rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#NumStrings"/>
+    </owl:NamedIndividual>
 </rdf:RDF>
 
 
