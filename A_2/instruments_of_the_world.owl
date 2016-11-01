@@ -151,15 +151,17 @@
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Bagpipes">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wind"/>
         <rdfs:subClassOf>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wood"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMaterial"/>
-                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Fabric"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasMaterial"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Fabric"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Wood"/>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
