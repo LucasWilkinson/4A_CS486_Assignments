@@ -368,7 +368,7 @@
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Cello -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Cello">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#OrchestralStrings"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
@@ -488,7 +488,7 @@
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#DoubleBass -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#DoubleBass">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#OrchestralStrings"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
@@ -860,9 +860,9 @@
     
 
 
-    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral -->
+    <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#OrchestralStrings -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral">
+    <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#OrchestralStrings">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#String"/>
         <rdfs:subClassOf>
             <owl:Class>
@@ -1417,7 +1417,7 @@
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Viola -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Viola">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#OrchestralStrings"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
@@ -1437,7 +1437,7 @@
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Violin -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Violin">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#OrchestralStrings"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#hasSoundRegister"/>
@@ -1457,7 +1457,7 @@
     <!-- http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Violoncello -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Violoncello">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#Orchestral"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/lucas_000/ontologies/instruments_of_the_world#OrchestralStrings"/>
     </owl:Class>
     
 
